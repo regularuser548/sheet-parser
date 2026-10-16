@@ -1,4 +1,6 @@
 import type { Auth } from '@/types/auth';
+import type { FlashToast } from '@/types/ui';
+import type { ValidationReport } from '@/types/sheets';
 
 declare module 'react' {
     interface InputHTMLAttributes<T> {
@@ -13,6 +15,10 @@ declare module '@inertiajs/core' {
             auth: Auth;
             sidebarOpen: boolean;
             [key: string]: unknown;
+        };
+        flashDataType: {
+            toast?: FlashToast;
+            validation?: ValidationReport;
         };
     }
 }

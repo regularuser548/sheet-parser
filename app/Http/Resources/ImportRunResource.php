@@ -20,6 +20,7 @@ class ImportRunResource extends JsonResource
             'id' => $this->id,
             'status' => $this->status->value,
             'status_label' => $this->status->label(),
+            'status_classes' => $this->status->badgeClasses(),
             'imported_rows' => $this->imported_rows,
             'updated_rows' => $this->updated_rows,
             'failed_rows' => $this->failed_rows,
