@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Sheets\Contracts\SheetReader;
+use App\Services\Sheets\GoogleSheetReader;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +17,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(SheetReader::class, function (): GoogleSheetReader {
+            $credentials = config('services.google.sheets.credentials');
+
+            return new GoogleSheetReader(
+                is_string($credentials) ? $credentials : null,
+                (int) config('services.google.sheets.timeout'),
+                (int) config('services.google.sheets.retries'),
+            );
+        });
     }
 
     /**

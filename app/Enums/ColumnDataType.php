@@ -70,9 +70,11 @@ enum ColumnDataType: string
      * Convert a raw spreadsheet cell into a value that can be persisted
      * in the destination column.
      *
+     * @return int|float|bool|string|array<mixed>|null
+     *
      * @throws ValueConversionException When the value cannot be converted.
      */
-    public function castValue(?string $value): int|float|bool|string|null
+    public function castValue(?string $value): int|float|bool|string|array|null
     {
         $value = $value === null ? null : trim($value);
 
@@ -142,6 +144,9 @@ enum ColumnDataType: string
         }
     }
 
+    /**
+     * @return array<mixed>|string
+     */
     private function castJson(string $value): array|string
     {
         $decoded = json_decode($value, true);
