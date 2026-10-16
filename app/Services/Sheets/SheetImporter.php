@@ -239,8 +239,8 @@ class SheetImporter
 
                 $targetId = DB::table($mapping->table_name)->insertGetId($payload);
 
-                ImportRowMarker::updateOrCreate(
-                    ['sheet_tab_id' => $tab->id, 'table_name' => $mapping->table_name, 'row_index' => $rowIndex],
+                $tab->rowMarkers()->updateOrCreate(
+                    ['table_name' => $mapping->table_name, 'row_index' => $rowIndex],
                     ['row_hash' => $hash, 'target_id' => $targetId],
                 );
 
@@ -291,7 +291,7 @@ class SheetImporter
      *
      * @param  array<string, array{column: ColumnMapping, position: int}>  $resolved
      * @param  list<string|null>  $row
-     * @return array<string, int|float|bool|string|array<mixed>|null>
+     * @return array<string, int|float|bool|string|null>
      */
     private function buildPayload(array $resolved, array $row): array
     {
@@ -315,7 +315,7 @@ class SheetImporter
     }
 
     /**
-     * @param  array<string, int|float|bool|string|array<mixed>|null>  $payload
+     * @param  array<string, int|float|bool|string|null>  $payload
      */
     private function isEmptyRow(array $payload): bool
     {

@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $row_hash
  * @property int|null $target_id
  */
-#[Fillable(['table_name', 'row_index', 'row_hash', 'target_id'])]
+#[Fillable(['sheet_tab_id', 'table_name', 'row_index', 'row_hash', 'target_id'])]
 class ImportRowMarker extends Model
 {
     /**
