@@ -22,7 +22,7 @@ class DestinationSchemaManager
      *
      * @var list<string>
      */
-    private const PROTECTED_TABLES = [
+    public const PROTECTED_TABLES = [
         'migrations',
         'users',
         'sessions',
@@ -45,7 +45,7 @@ class DestinationSchemaManager
     /**
      * Maximum identifier length accepted by MySQL.
      */
-    private const MAX_IDENTIFIER_LENGTH = 64;
+    public const MAX_IDENTIFIER_LENGTH = 64;
 
     /**
      * Build the schema plan for a destination table without changing anything.
@@ -167,11 +167,11 @@ class DestinationSchemaManager
      */
     public function assertSafeTable(string $table): void
     {
-        if (! $this->isSafeIdentifier($table)) {
+        if (! self::isValidIdentifier($table)) {
             throw new UnsafeIdentifierException("[$table] is not a valid table name.");
         }
 
-        if (in_array(mb_strtolower($table), self::PROTECTED_TABLES, true)) {
+        if (self::isProtectedTable($table)) {
             throw new UnsafeIdentifierException("The [$table] table is protected and cannot be used as an import destination.");
         }
     }
@@ -181,7 +181,7 @@ class DestinationSchemaManager
      */
     public function assertSafeColumn(string $column): void
     {
-        if (! $this->isSafeIdentifier($column)) {
+        if (! self::isValidIdentifier($column)) {
             throw new UnsafeIdentifierException("[$column] is not a valid column name.");
         }
 
@@ -195,8 +195,24 @@ class DestinationSchemaManager
      */
     public function isSafeIdentifier(string $identifier): bool
     {
+        return self::isValidIdentifier($identifier);
+    }
+
+    /**
+     * Whether an identifier only contains safe, unquoted characters.
+     */
+    public static function isValidIdentifier(string $identifier): bool
+    {
         return preg_match('/^[A-Za-z_][A-Za-z0-9_]*$/', $identifier) === 1
             && mb_strlen($identifier) <= self::MAX_IDENTIFIER_LENGTH;
+    }
+
+    /**
+     * Whether a table name is reserved for the application.
+     */
+    public static function isProtectedTable(string $table): bool
+    {
+        return in_array(mb_strtolower($table), self::PROTECTED_TABLES, true);
     }
 
     private function addColumn(Blueprint $blueprint, ColumnMapping $column): void
