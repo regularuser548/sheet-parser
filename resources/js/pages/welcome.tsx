@@ -39,7 +39,7 @@ export default function Welcome() {
                 </header>
                 <main className="w-full max-w-2xl">
                     <div className="rounded-xl border border-sidebar-border/70 bg-white p-10 shadow-sm dark:border-[#3E3E3A] dark:bg-[#161615]">
-                        <h1 className="mb-4 text-3xl font-bold">
+                        <h1 className="mb-4 text-3xl font-bold text-[#1b1b18] dark:text-[#EDEDEC]">
                             Sheet Parser
                         </h1>
                         <p className="mb-8 text-lg text-[#706f6c] dark:text-[#A1A09A]">
@@ -47,28 +47,13 @@ export default function Welcome() {
                             database with configurable mappings and automated
                             imports.
                         </p>
-                        {auth.user ? (
+                        {auth.user && (
                             <Link
                                 href={sources.index()}
                                 className="inline-flex items-center rounded-sm border border-[#19140035] bg-[#f53003] px-6 py-2 text-sm font-medium text-white hover:bg-[#e02a02] dark:border-[#FF4433]"
                             >
                                 Get started
                             </Link>
-                        ) : (
-                            <div className="flex gap-4">
-                                <Link
-                                    href={login()}
-                                    className="inline-flex items-center rounded-sm border border-[#19140035] px-6 py-2 text-sm font-medium text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                                >
-                                    Log in
-                                </Link>
-                                <Link
-                                    href={register()}
-                                    className="inline-flex items-center rounded-sm border border-[#19140035] bg-[#f53003] px-6 py-2 text-sm font-medium text-white hover:bg-[#e02a02] dark:border-[#FF4433]"
-                                >
-                                    Register
-                                </Link>
-                            </div>
                         )}
                     </div>
                 </main>
