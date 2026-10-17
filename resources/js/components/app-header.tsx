@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/sheet';
 import { UserMenuContent } from '@/components/user-menu-content';
 import { useInitials } from '@/hooks/use-initials';
-import { dashboard } from '@/routes';
+import sources from '@/routes/sheets/sources';
 import type { BreadcrumbItem } from '@/types';
 
 type Props = {
@@ -62,7 +62,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                     </div>
 
                     <Link
-                        href={dashboard()}
+                        href={sources.index()}
                         prefetch
                         className="flex items-center space-x-2"
                     >

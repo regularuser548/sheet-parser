@@ -12,7 +12,6 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
 import runs from '@/routes/sheets/runs';
 import sources from '@/routes/sheets/sources';
 import type { NavItem } from '@/types';
@@ -37,7 +36,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboard()} prefetch>
+                            <Link href={sources.index()} prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
